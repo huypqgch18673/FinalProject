@@ -33,14 +33,15 @@
 					<td>{{ c.id }}</td>
 					<td>
 						<a href="{{ path('category_detail' , { 'id': c.id }) }}">
-							<img src="{{ c.image }}" width="100" height="100">
+							{{ c.name }}
 						</a>
 					</td>
 					<td>
 						<a href="{{ path('category_detail' , { 'id': c.id }) }}">
-							{{ c.name }}
+							<img src="{{ c.image }}" width="200" height="200">
 						</a>
 					</td>
+					
 					<td>
 						<a class="btn btn-info" href="{{ path('category_detail' , { 'id': c.id }) }}">Detail</a>
 					</td>
