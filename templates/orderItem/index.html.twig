@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+<div>
+        {% if orderItems == null %}
+            <h1>Cart was haven't order</h1>
+        {% else %}
+        <div class="container">
+        
+        <table class="table table-condensed mt-3">
+            <tr>
+                <th>Product name</th>
+                <th>Product image</th>
+                <th>Quantity</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Total cost</th>
+                <th>Delele</th>
+            </tr>
+            {% for c in orderItems %}
+                <tr>
+                    <td>{{c.product.title}}</td>
+                    <td><img src="{{ c.product.image }}" alt="" width="200px" height="120px"></td>
+                    <td>{{ c.quantity }}</td>  
+                    <td>{{c.product.size}}</td>    
+                    <td>{{ c.product.price}}</td>
+                    <td>{{ (c.quantity * c.product.price)}} <sup>vnd</sup></td>    
+                    <td>
+                        <a class="btn btn-danger" href="{{ path('orderItems_delete', { 'id': c.id }) }}" onclick="return confirm('Do you want to delete this cart ?')">Delete</a>
+                    </td>
+                </tr> 
+            {% endfor %}
+        </table>
+        <a href="{{ path ('order_add') }}" class="btn btn-success float-right py-2"> Order Pay</a>
+        </div>
+        {% endif %}
+</div>
+{% endblock %}

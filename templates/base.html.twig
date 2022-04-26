@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}
+				My website
+			{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle`
+						and uncomment the following Encore helpers to start using Symfony UX #}
+
+		{% block stylesheets %}
+			<!-- CSS only -->
+
+			<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		{% endblock %}
+
+		{% block javascripts %}
+			{#{{ encore_entry_script_tags('app') }}#}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="" >
+			{% block nav %}
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<div class="navbar-brand" >
+					<a class="nav-link" href="{{ path('homepage')}}">
+					<img src="https://cdn.fbsbx.com/v/t59.2708-21/279115871_443805350839618_329293331397014900_n.gif?_nc_cat=107&ccb=1-5&_nc_sid=041f46&_nc_ohc=csjzxbFU-VEAX_fKvAX&_nc_ht=cdn.fbsbx.com&oh=03_AVJ9pWm1kw1WduG3a-O2574Lq12EBN1GcUOgN2HWznsdhw&oe=6269717D" width="150" height="150" >
+					</a>
+					</div>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active me-3">
+								<a class="nav-link h2  " href="{{ path('homepage')}}">Home
+								</a>
+							</li>
+							<li class="nav-item me-3">
+								<a class="nav-link h2  " href="{{ path('category_index') }}">Category</a>
+							</li>
+							<li class="nav-item me-3">
+								<a class="nav-link h2 " href="{{ path('product_index') }}">Product</a>
+							</li>
+							<li class="nav-item h2 me-3">
+								
+								
+							</li>
+						</ul>
+
+						
+					</div>
+					<div class="nav-item">
+					<a class="nav-link " href="{{ path('orderItem_index') }}">
+					<img src="https://cdn.iconscout.com/icon/free/png-256/shopping-cart-1433158-1211836.png" width="70" height="70">
+					</a>
+					</div>
+					<div class="nav-item"> 
+							<a class="nav-link" href="{{ path('app_logout')}}"><img src="http://www.clker.com/cliparts/A/7/b/d/a/I/logout-button-blue-hi.png" width="100" height="50" ></a>
+						</div>
+					
+				</nav>
+				
+			{% endblock %}
+
+			{% block body %}{% endblock %}
+			{% block footer %}{% endblock %}
+		</div>
+
+	</body>
+</html>

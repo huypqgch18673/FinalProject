@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br> <br>
+<div>
+{# nhận message gửi từ controller #}
+{% for flash in app.flashes("Success") %}
+    <p class="alert alert-primary">{{ flash }}</p>
+{% endfor %}
+{% for flash in app.flashes("Error") %}
+    <p class="alert alert-danger">{{ flash }}</p>
+{% endfor %}
+<div class="container">
+		<div class="card text-center">
+			<div class="card-header"> 
+			<h4 class="card-title">List of all products</h4>
+			<a href="{{ path ('product_add') }}" class="btn btn-primary float-right py-2"> ADD NEW PRODUCT</a>
+		</div>
+	
+	</div>
+		<table class="table">
+			<tr>
+				<th>Id</th>
+				<th>Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+				<th>Image</th>
+				<th>Size</th>
+				<th>Color</th>
+				<th>EDIT</th>
+				<th>DELETE</th>
+			</tr>
+				{% for p in products %}
+				<tr>
+					<td>{{ p.id }}</td>
+					<td>{{ p.title }}</td>
+                    <td>{{ p.quantity }}</td>
+                    <td>{{ p.price }}</td>
+					<td>
+						<a href="{{ path('product_detail' , { 'id': p.id }) }}">
+							<img src="{{ p.image }}" width="100" height="100">
+						</a>
+					</td>
+					<td>{{p.size}}</td>
+					<td>{{ p.color}}</td>	
+					<td><a class="btn btn-warning" href="{{ path('product_edit', { 'id': p.id }) }}">Edit</a></td>
+					<td><a class="btn btn-danger" href="{{ path('product_delete', { 'id': p.id }) }}" onclick="return confirm('Do you want to delete this category ?')">Delete</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+</div>
+
+{% endblock %}

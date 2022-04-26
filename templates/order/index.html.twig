@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+       
+        <th>Name</th>
+        <th>Address</th>
+        <th>PhoneNumber</th>
+        <th>Note</th>
+        <th></th>
+    </thead>
+    {% for o in orders %}
+    <tbody>
+        <tr>    
+        <td> {{o.name}}</td>
+        <td>{{o.address}}</td>
+        <td>{{o.phoneNumber}}</td>
+        <td>{{o.note}}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+<br><br>
+ <table class="table table-primary mt-3">
+            <tr>
+                <th>Product name</th>
+                <th>Product image</th>
+                <th>Quantity</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Total cost</th>
+            </tr>
+            {% for c in orderItems %}
+                <tr>
+                    <td>{{c.product.title}}</td>
+                    <td><img src="{{ c.product.image }}" alt="" width="90px" height="100px"></td>
+                    <td>{{ c.quantity }}</td>  
+                    <td>{{c.product.size}}</td>    
+                    <td>{{ c.product.price}}</td>
+                    <td>{{ (c.quantity * c.product.price)}} <sup>vnd</sup></td>    
+                </tr> 
+            {% endfor %}
+        </table>
+</div>
+</div>
+{% endblock %}
