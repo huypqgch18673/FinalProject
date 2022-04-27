@@ -14,7 +14,7 @@
          {% if country.brands != null %}
             {% for brand in country.brands %}
                <a class="text text-success" href="{{ path('brand_detail' , {'id' : brand.id })}}"> 
-                  {{ brand.title }} 
+                  {{ brand.name }} 
                </a>
                <br>
             {% endfor %}
