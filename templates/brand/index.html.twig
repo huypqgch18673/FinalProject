@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid col-md-8 text-center">
+    <h2 class="text text-success mb-2">Brand List</h2>
+    {% if is_granted('ROLE_ADMIN') %}
+       <a class="btn btn-primary mb-3" href="{{ path('brand_add')}}">ADD</a>
+    {% endif %}
+    <form action="{{ path('brand_search') }}" method="post">
+        <input type="search" name="title" id="">
+        <input type="submit" value="Search">
+    </form>
+    <h3 class="text text-danger mt-3">
+    {% set total = brands|length %}
+    {% if total <= 1 %}
+        Total brands :
+    {% else %}
+        Total brands :
+    {% endif %}
+        {{ total }}
+    </h3>
+    <table class="table table-hover mt-3">
+        <tr>
+            <th>Brand Id
+                <select onchange="window.location.href=this.value">
+                    <option>Sort</option>
+                    <option value="{{ path('brand_asc')}}">Ascending</option>
+                    <option value="{{ path('brand_desc')}}">Descending</option>
+                </select>       
+            </th>
+            <th>Brand Title</th>
+            <th>Brand Genre
+                <select onchange="window.location.href=this.value">
+                    <option value="">Filter</option>
+                    {% for country in countries %}
+                        <option value="{{ path('brand_filter', {'id' : country.id}) }}">{{ country.name }}</option>
+                    {% endfor %}
+                </select>        
+            </th>
+            <th>Brand logo</th>
+            <th>Menu</th>
+        </tr>
+        {% for brand in brands %}
+            <tr>
+                <td>{{ brand.id }}</td>
+                <td>{{ brand.name }}</td>
+                <th>
+                    {% if brand.country != null %}
+                        <a class="text text-success text-decoration-none" href="{{ path('country_detail', {'id' : brand.country.id })}}">
+                            {{ brand.country.name }}
+                        </a>   
+                    {% endif %}
+                </th>
+                <td>
+                    <a href="{{ path('brand_detail', {'id' : brand.id })}}  ">
+                        <img src="{{ asset('images/brands/'~brand.image)}}" width=100 height=100>
+                    </a>   
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="{{ path('brand_edit', {'id' : brand.id }) }}">EDIT</a>
+                    <a class="btn btn-danger" 
+                    href="{{ path('brand_delete', {'id' : brand.id}) }}"
+                    onclick="return confirm('Do you want to delete this brand ?');"
+                    >DELETE</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
