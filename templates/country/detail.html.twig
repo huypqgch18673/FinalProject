@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container-fluid col-md-8 text-center">
+   <h2 class="text text-success mb-3">{{ country.name }}</h2>
+   <div class="row">
+      <div class="col">
+         <img src="{{ country.image }}" width=250 height=250>
+      </div>
+      <div class="col">
+         
+         <br><br>
+         <h3> List of brands </h3>
+         {% if country.brands != null %}
+            {% for brand in country.brands %}
+               <a class="text text-success" href="{{ path('brand_detail' , {'id' : brand.id })}}"> 
+                  {{ brand.title }} 
+               </a>
+               <br>
+            {% endfor %}
+         {% endif %}
+      </div>
+   </div>
+</div>
+{% endblock %}

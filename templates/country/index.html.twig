@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container-fluid col-md-8 text-center">
-    <h2 class="text text-success mb-2">Genre List</h2>
+<div class="container-fluid col-md-11 text-center">
+    <h2 class="text text-success mb-2">List of Countries</h2>
     <a class="btn btn-primary mb-3" href="{{ path('country_add')}}">ADD</a>
-    <table class="table table-info">
+    <table class="table table-bordered">
         <tr>
             <th>Country Id</th>
             <th>Country name</th>
@@ -17,7 +17,7 @@
                 <td>{{ country.name }}</td>
                 <td>
                     <a href="{{ path('country_detail' , {'id' : country.id })}}">
-                        <img src="{{ country.image }}" width=100 height=100>
+                        <img src="{{ country.image }}" width=220 height=150>
                     </a>     
                 </td>
                 <td>

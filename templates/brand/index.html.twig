@@ -1,25 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container-fluid col-md-8 text-center">
+<div class="container-fluid col-md-11 text-center">
     <h2 class="text text-success mb-2">Brand List</h2>
     {% if is_granted('ROLE_ADMIN') %}
        <a class="btn btn-primary mb-3" href="{{ path('brand_add')}}">ADD</a>
     {% endif %}
-    <form action="{{ path('brand_search') }}" method="post">
-        <input type="search" name="title" id="">
-        <input type="submit" value="Search">
-    </form>
+    
     <h3 class="text text-danger mt-3">
     {% set total = brands|length %}
     {% if total <= 1 %}
-        Total brands :
+        Number of Brands :
     {% else %}
-        Total brands :
+        Number of Brands :
     {% endif %}
         {{ total }}
     </h3>
-    <table class="table table-hover mt-3">
+    <table class="table table-hover mt-6">
         <tr>
             <th>Brand Id
                 <select onchange="window.location.href=this.value">
@@ -28,8 +25,10 @@
                     <option value="{{ path('brand_desc')}}">Descending</option>
                 </select>       
             </th>
-            <th>Brand Title</th>
-            <th>Brand Genre
+            <th>Brand Name</th>
+            <th>Owner</th>
+            <th>Company value (Bilion Dollar)</th>
+            <th>Brand country
                 <select onchange="window.location.href=this.value">
                     <option value="">Filter</option>
                     {% for country in countries %}
@@ -44,6 +43,8 @@
             <tr>
                 <td>{{ brand.id }}</td>
                 <td>{{ brand.name }}</td>
+                <td>{{ brand.Owner }}</td>
+                <td>{{ brand.value }}</td>
                 <th>
                     {% if brand.country != null %}
                         <a class="text text-success text-decoration-none" href="{{ path('country_detail', {'id' : brand.country.id })}}">
@@ -52,9 +53,9 @@
                     {% endif %}
                 </th>
                 <td>
-                    <a href="{{ path('brand_detail', {'id' : brand.id })}}  ">
-                        <img src="{{ asset('images/brands/'~brand.image)}}" width=100 height=100>
-                    </a>   
+                    <a href="{{ path('brand_detail' , {'id' : brand.id })}}">
+                        <img src="{{ brand.image }}" width=100 height=100>
+                    </a>      
                 </td>
                 <td>
                     <a class="btn btn-warning" href="{{ path('brand_edit', {'id' : brand.id }) }}">EDIT</a>

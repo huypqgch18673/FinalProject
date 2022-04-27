@@ -88,20 +88,17 @@ class Brand
         return $this;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image): self
+    public function setImage(string $image): self
     {
-        /* nếu người dùng upload ảnh mới khi edit
-        thì set ảnh mới thay cho ảnh cũ trong DB
-        còn nếu người dùng không upload ảnh mới 
-        thì vẫn giữ nguyên ảnh cũ */
-        if ($image != null) {
-            $this->image = $image;
-        }
+
+
+        $this->image = $image;
+
 
         return $this;
     }

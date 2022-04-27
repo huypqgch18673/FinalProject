@@ -80,30 +80,6 @@ class BrandController extends AbstractController
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //code xử lý tên ảnh và copy ảnh vào thư mục chứa project
-            //B1: tạo biến $image để lấy ra tên image khi upload từ form
-            $image = $brand->getImage();
-            //B2: tạo tên file ảnh mới => đảm bảo tên ảnh là duy nhất
-            $imgName = uniqid(); //unique id
-            //B3: lấy ra đuôi (extension) của ảnh
-            $imgExtension = $image->guessExtension();
-            //Note: cần bỏ data type "string" trong hàm getImage() + setImage()
-            //để biển $image thành object thay vì string
-            //B4: ghép thành tên file ảnh hoàn thiện
-            $imageName = $imgName . '.' . $imgExtension;
-            //B5: copy ảnh vào thư mục chỉ định trong project
-            try {
-                $image->move(
-                    $this->getParameter('brand_image'),
-                    $imageName
-                );
-                //Note: cần set đường dẫn chứa ảnh trong file config/services.yaml  
-            } catch (FileException $e) {
-                throwException($e);
-            }
-            //B6: lưu tên ảnh vào DB
-            $brand->setImage($imageName);
-            //đẩy dữ liệu của book vào DB
             $manager = $registry->getManager();
             $manager->persist($brand);
             $manager->flush();
@@ -113,6 +89,7 @@ class BrandController extends AbstractController
         return $this->renderForm(
             'brand/add.html.twig',
             [
+
                 'brandForm' => $form,
                 'countries' => $countries
             ]
@@ -123,33 +100,10 @@ class BrandController extends AbstractController
     public function brandEdit(Request $request, ManagerRegistry $registry, $id)
     {
         $countries = $registry->getRepository(Country::class)->findAll();
-        $brand = $registry->getRepository(Brand::class)->find($id);
+        $brand = $registry->getRepository(Country::class)->find($id);
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /* 
-           kiểm tra xem người dùng có upload ảnh mới
-           cho book khi edit ảnh hay không
-           nếu có thì chạy code xử lý ảnh giống phần Add 
-           nếu không thì giữ nguyên ảnh cũ trong DB
-           */
-            $imageFile = $form['image']->getData();
-            if ($imageFile != null) {
-                $image = $brand->getImage();
-                $imgName = uniqid();
-                $imgExtension = $image->guessExtension();
-                $imageName = $imgName . '.' . $imgExtension;
-                try {
-                    $image->move(
-                        $this->getParameter('brand_image'),
-                        $imageName
-                    );
-                } catch (FileException $e) {
-                    throwException($e);
-                }
-                $brand->setImage($imageName);
-            }
-
             $manager = $registry->getManager();
             $manager->persist($brand);
             $manager->flush();
@@ -159,7 +113,8 @@ class BrandController extends AbstractController
         return $this->renderForm(
             'brand/edit.html.twig',
             [
-                'brandForm' => $form,
+
+                'bookForm' => $form,
                 'countries' => $countries
             ]
         );
@@ -193,20 +148,7 @@ class BrandController extends AbstractController
         );
     }
 
-    #[Route('/search', name: 'brand_search')]
-    public function search(Request $request, BrandRepository $brandRepository, ManagerRegistry $registry)
-    {
-        $countries = $registry->getRepository(Country::class)->findAll();
-        $keyword = $request->get('title');
-        $brands = $brandRepository->search($keyword);
-        return $this->render(
-            "brand/index.html.twig",
-            [
-                'brands' => $brands,
-                'countries' => $countries
-            ]
-        );
-    }
+
 
     #[Route('/filter/{id}', name: 'brand_filter')]
     public function filter($id, ManagerRegistry $registry)

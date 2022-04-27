@@ -8,7 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -52,14 +52,10 @@ class BrandType extends AbstractType
             )
             ->add(
                 'image',
-                FileType::class,
+                TextType::class,
                 [
-                    'label' => 'Brand logo',
-                    'data_class' => null,
-                    'required' => is_null($builder->getData()->getImage())
-                    /* Brand đã có image => getImage() =! null => required = false
-                   Brand chưa có image => getImage() == null => required = true
-                */
+                    'label' => 'Genre image',
+                    'required' => true
                 ]
             )
             ->add(

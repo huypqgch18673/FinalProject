@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-8 text-center">
+   <h2 class="text-success mb-3"> {{ brand.name }} </h2>
+   <div class="row">
+      <div class="col">
+         <img src="{{ brand.image }}" width=250 height=250>
+      </div>
+      <div class="col">
+         <h5 class="text-info">Owner: {{ brand.owner }}</h5>
+         
+         <h5 class="text-info">Rating: {{ brand.rate }} Star</h5>>
+         <h5 class="text-warning">Country: 
+            {% if brand.country != null %}
+               <a class="text text-success" href="{{ path('country_detail' , {'id' : brand.country.id})}}">
+                  {{ brand.country.name }}
+               </a>             
+            {% endif %}
+        </h5>
+         <h5 class="text-secondary">Company value: {{ brand.value }} bilion dollar $ </h5>
+        
+      </div>
+   </div>
+</div>
+{% endblock %}

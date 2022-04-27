@@ -1,0 +1,10 @@
+{% form_theme brandForm 'bootstrap_5_layout.html.twig' %}
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-7 text-center">
+   <h2 class="text text-warning">Edit Brand</h2>
+   {{ form_start (brandForm) }}
+   {{ form_end (brandForm) }}
+</div>
+{% endblock %}
