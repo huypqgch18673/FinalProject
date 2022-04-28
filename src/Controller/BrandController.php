@@ -34,7 +34,7 @@ class BrandController extends AbstractController
     }
 
     #[Route('/detail/{id}', name: 'brand_detail')]
-    public function bookDetail(ManagerRegistry $registry, $id)
+    public function brandDetail(ManagerRegistry $registry, $id)
     {
         $brand = $registry->getRepository(Brand::class)->find($id);
         $countries = $registry->getRepository(Country::class)->findAll();
@@ -114,7 +114,7 @@ class BrandController extends AbstractController
             'brand/edit.html.twig',
             [
 
-                'bookForm' => $form,
+                'brandForm' => $form,
                 'countries' => $countries
             ]
         );
